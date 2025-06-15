@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const Joi = require("@hapi/joi");
 const jwt = require("jsonwebtoken");
 
-const User = require("../model/User");
+const User = require("../model/user");
 
 const AuthController = {
   registerUser: async (req, res, next) => {

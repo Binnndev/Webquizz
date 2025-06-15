@@ -1,6 +1,6 @@
 const Joi = require("@hapi/joi");
 
-const Quizzer = require("../model/Quizzer");
+const Quizzer = require("../model/quizzer");
 
 const QuizzerController = {
   createQuizzer: async (req, res, next) => {
@@ -38,14 +38,8 @@ const QuizzerController = {
     try {
       const quizzer = await Quizzer.findOne({ _id: req.params.id });
       if (quizzer) {
-        const {
-          _id,
-          name,
-          email,
-          quizCurated,
-          quizAttended,
-          quizFlawless,
-        } = quizzer;
+        const { _id, name, email, quizCurated, quizAttended, quizFlawless } =
+          quizzer;
 
         return res.status(200).send({
           _id,

@@ -1,6 +1,6 @@
 const Joi = require("@hapi/joi");
 
-const Quiz = require("../model/Quiz");
+const Quiz = require("../model/quiz");
 const QuizzerController = require("./QuizzerController");
 
 const QuizController = {
@@ -104,10 +104,11 @@ const QuizController = {
         const updatedQuiz = await Quiz.findByIdAndUpdate(quiz_id, quiz);
 
         // update quizzer stats
-        const updatedQuizzer = await QuizzerController.incrementParticipationCount(
-          user_id,
-          solved === questions.length
-        );
+        const updatedQuizzer =
+          await QuizzerController.incrementParticipationCount(
+            user_id,
+            solved === questions.length
+          );
 
         const response = {
           user_id: user_id,
