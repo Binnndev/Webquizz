@@ -27,26 +27,22 @@ class Registration extends Component {
     this.setState({ password: e.target.value, error: false });
   };
 
-  handleRegistrationSubmit = (e) => {
+  handleRegistrationSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password } = this.state;
-    AuthService.register({ name, email, password }).then((response) => {
-      if (response === false) {
-        this.setState({ error: true });
-      } else {
-        this.props.history.push("/done");
-      }
-    });
+    const result = await AuthService.register({ name, email, password });
+    if (!result) {
+      this.setState({ error: true });
+    } else {
+      // Sau khi đăng ký thành công, điều hướng
+      this.props.history.push('/done');
+    }
   };
 
   render() {
-    // console.log("register", sessionStorage.getItem("isLoggedIn"));
     if (this.props.checkLogin()) {
-      return <Redirect to={{ pathname: "/dashboard" }} />;
+      return <Redirect to="/dashboard" />;
     }
-    // if (sessionStorage.getItem("isLoggedIn") === "true") {
-    //   return <Redirect to={{ pathname: "/dashboard" }} />;
-    // }
     return (
       <React.Fragment>
         <NavBar

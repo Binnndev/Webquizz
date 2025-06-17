@@ -49,6 +49,13 @@ class QuizBuilder extends Component {
     return { id, title, answer, options };
   };
 
+  handleSave = async () => {
+    const token = sessionStorage.getItem('quizden-token');
+    const quizData = { /* title, type, questions */ };
+    const saved = await QuizService.create(quizData, token);
+    if (saved) this.props.history.push('/quiz-done');
+  };
+
   // question form control
   handleQuestionTitleChange = (id, value) => {
     const { questions } = this.state;

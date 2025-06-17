@@ -8,61 +8,55 @@ import QuizService from "../../service/QuizService";
 class QuizTaker extends Component {
   constructor(props) {
     super(props);
-    const { questions } = this.props.quiz;
-    const answers = [];
-    for (let i = 0; i < questions.length; i++) {
-      answers.push({
-        question_id: questions[i].id,
-        answer: -1,
-      });
-    }
+    const { questions } = props.quiz || { questions: [] };
+    // Khởi tạo answers từ questions
+    const answers = questions.map(q => ({ question_id: q.id, answer: -1 }));
 
     this.state = {
-      quiz: this.props.quiz,
-      user: this.props.user,
-      answers: answers,
+      quiz: props.quiz,
+      answers
     };
-    sessionStorage.setItem("quiz-attending", this.state.quiz._id);
+    sessionStorage.setItem('quiz-attending', this.state.quiz?._id);
   }
 
-  componentDidMount() {}
+  async componentDidMount() {
+    const token = sessionStorage.getItem('quizden-token');
+    const quizId = this.state.quiz?._id;
+    if (token && quizId) {
+      try {
+        const quiz = await QuizService.getById(quizId, token);
+        this.setState({ quiz });
+      } catch (err) {
+        console.error('Load quiz error', err);
+      }
+    }
+  }
 
-  handleSelectAnswer = (q_id, opt_id) => {
-    const { answers } = this.state;
-    const index = answers.findIndex((answer) => answer.question_id === q_id);
-    answers[index].answer = opt_id;
-    this.setState({ answers: [...answers] });
+  handleSelectAnswer = (question_id, answer) => {
+    this.setState(prev => ({
+      answers: prev.answers.map(a =>
+        a.question_id === question_id ? { ...a, answer } : a
+      )
+    }));
   };
 
-  handleSubmit = () => {
-    const user_id = this.state.user._id;
-    const quiz_id = this.state.quiz._id;
-    const request = {
-      user_id: user_id,
-      quiz_id: quiz_id,
-      answers: [...this.state.answers],
-    };
-    QuizService.submitAnswer(request).then((response) => {
-      if (response === false) {
-        console.log("FAILED!");
-      } else {
-        this.props.history.push({
-          pathname: "/quiz-taken",
-          state: { quiz: response },
-        });
-      }
-    });
+  handleSubmit = async () => {
+    const token = sessionStorage.getItem('quizden-token');
+    const quizId = this.state.quiz?._id;
+    if (token && quizId) {
+      const result = await QuizService.attend(quizId, this.state.answers, token);
+      this.props.history.push('/quiz-taken', { result });
+    }
   };
 
   render() {
     if (!this.props.checkLogin()) {
-      return <Redirect to={{ pathname: "/login" }} />;
+      return <Redirect to="/login" />;
     }
-
-    const { quiz } = this.state;
-
+    const { quiz, answers } = this.state;
+    if (!quiz) return null;
     return (
-      <React.Fragment>
+      <>
         <NavBar
           isLoggedIn={this.props.isLoggedIn}
           checkLogin={this.props.checkLogin}
@@ -115,7 +109,7 @@ class QuizTaker extends Component {
             </div>
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

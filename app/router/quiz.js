@@ -4,14 +4,14 @@ const AuthController = require("../controller/AuthController");
 const QuizzerController = require("../controller/QuizzerController");
 const QuizController = require("../controller/QuizController");
 
-router.post(
-  "/create/:user_id",
-  AuthController.verifyToken,
-  async (req, res, next) => {
-    await QuizController.createQuiz(req, res, next);
+router.get("/user/:userId", AuthController.verifyToken, async (req, res) => {
+  try {
+    const list = await Quiz.find({ user_id: req.params.userId });
+    res.json(list);
+  } catch (err) {
+    res.status(500).send("Server error");
   }
-);
-
+});
 router.get("/", AuthController.verifyToken, async (req, res, next) => {
   console.log("Get Quizzer Data");
   await QuizController.findAll(req, res, next);

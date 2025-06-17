@@ -7,10 +7,7 @@ const auth = require("./auth");
 const quizzer = require("./quizzer");
 const quiz = require("./quiz");
 
-// {base API URL}
-const api_uri = process.env.API_URI;
-
-router.get(api_uri, (req, res) => {
+router.get("/", (req, res) => {
   res.send("Hello to QuizDen Backend System");
 });
 
@@ -18,8 +15,9 @@ router.get(api_uri, (req, res) => {
 DBConnection.dbConnect();
 
 // route middleware
-router.use(api_uri + "/auth", auth);
-router.use(api_uri + "/quizzers", quizzer);
-router.use(api_uri + "/quizzes", quiz);
+router.use("/auth",    auth);     
+router.use("/quizzers", quizzer);
+router.use("/quizzes",  quiz);
+
 
 module.exports = router;

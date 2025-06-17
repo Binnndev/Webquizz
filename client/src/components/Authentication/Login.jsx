@@ -23,29 +23,20 @@ class Login extends Component {
     this.setState({ password: e.target.value, error: false });
   };
 
-  handleLoginSubmit = (e) => {
+   handleLoginSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = this.state;
-    AuthService.login({ email, password }).then((response) => {
-      if (response === false) {
-        this.setState({ error: true });
-      } else {
-        sessionStorage.setItem("quizden-authToken", response.authToken);
-        sessionStorage.setItem("quizden-user-id", response._id);
-
-        // get Quizzer profile
-        QuizzerService.getQuizzer(response._id, response.authToken).then(
-          (response) => {
-            if (response === false) {
-              this.setState({ error: true });
-            } else {
-              this.props.onLogin(response);
-              this.props.history.push("/dashboard");
-            }
-          }
-        );
-      }
-    });
+    const res = await AuthService.login({ email, password });
+    if (!res) {
+      this.setState({ error: true });
+    } else {
+      sessionStorage.setItem('quizden-token', res.authToken);
+      sessionStorage.setItem('quizden-user-id', res._id);
+      // Lấy profile quizzer
+      const profile = await QuizzerService.getQuizzer(res._id, res.authToken);
+      this.props.onLogin(profile);
+      this.props.history.push('/dashboard');
+    }
   };
 
   render() {

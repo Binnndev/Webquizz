@@ -62,8 +62,13 @@ class App extends Component {
   };
 
   handleQuizzesCurated = (quizzes) => {
-    quizzes.reverse();
-    this.setState({ quizzes: quizzes });
+    if (!Array.isArray(quizzes)) {
+      console.warn("onQuizLoad nhận không phải mảng:", quizzes);
+      return this.setState({ quizzes: [] });
+    }
+    // clone trước khi reverse để không mutate gốc
+    const reversed = [...quizzes].reverse();
+    this.setState({ quizzes: reversed });
   };
 
   handleQuizFetch = (quiz) => {

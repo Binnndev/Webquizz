@@ -8,41 +8,29 @@ import QuizService from "../../service/QuizService";
 import QuizzerService from "../../service/QuizzerService";
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: this.props.user,
-    };
-    this.getQuizzes();
+  async componentDidMount() {
+    const token  = sessionStorage.getItem("quizden-authToken");
+    const userId = sessionStorage.getItem("quizden-user-id");
+
+    // cập nhật App.state.user
+    const profile = await QuizzerService.getQuizzer(userId, token);
+    if (profile) this.props.onUserUpdate(profile);
+
+    // load quizzes
+    const quizzes = await QuizService.findByUser(userId, token);
+    if (quizzes) this.props.onQuizLoad(quizzes);
   }
-
-  componentDidMount() {
-    const authToken = sessionStorage.getItem("quizden-authToken");
-    const user_id = sessionStorage.getItem("quizden-user-id");
-
-    // get Quizzer profile
-    QuizzerService.getQuizzer(user_id, authToken).then((response) => {
-      if (response === false) {
-      } else {
-        this.setState({ user: response });
-        this.props.onUserUpdate(response);
-      }
-    });
-  }
-
-  getQuizzes = () => {
-    const user_id = sessionStorage.getItem("quizden-user-id");
-    QuizService.findByUser(user_id).then((response) => {
-      if (response === false) {
-      } else {
-        this.props.onQuizLoad(response);
-      }
-    });
-  };
 
   render() {
     if (!this.props.checkLogin()) {
-      return <Redirect to={{ pathname: "/login" }} />;
+      return <Redirect to="/login" />;
+    }
+
+    const user    = this.props.user;
+    const quizzes = this.props.quizzes;
+
+    if (!user) {
+      return <div>Đang tải…</div>;
     }
     return (
       <React.Fragment>
@@ -54,13 +42,13 @@ class Dashboard extends Component {
         <div className="container-fluid">
           <div className="row mt-5">
             <Profile
-              classes="col-sm-4 offset-sm-1 mr-4 section"
-              name={this.state.user.name}
-              email={this.state.user.email}
-              curated={this.state.user.quizCurated}
-              attended={this.state.user.quizAttended}
-              flawless={this.state.user.quizFlawless}
-            />
+           classes="col-sm-4 offset-sm-1 mr-4 section"
+           name={user.name}
+           email={user.email}
+           curated={user.quizCurated}
+           attended={user.quizAttended}
+           flawless={user.quizFlawless}
+         />
 
             {/* Tools section  */}
             <Tools
