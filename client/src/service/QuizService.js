@@ -3,20 +3,25 @@ import axios from 'axios';
 const API = process.env.REACT_APP_API_URI;
 
 const QuizService = {
- // alias cho QuizBuilder
- submit: async (data, token) => {
-   try {
-     const res = await axios.post(
-       `${API}/quizzes`,
-       data,
-       { headers: { "auth-token": token } }
-     );
-     return res.data;
-   } catch (err) {
-     console.error("Submit Quiz error", err);
-     return false;
-   }
- },
+  // gửi quiz mới lên server
+  create: async (data, token) => {
+    try {
+      const res = await axios.post(
+        `${API}/quizzes`,
+        data,
+        { headers: { "auth-token": token } }
+      );
+      return res.data;
+    } catch (err) {
+      console.error("QuizService.create error:", err.response || err);
+      return false;
+    }
+  },
+
+  // giữ lại submit nếu chỗ khác có dùng
+  submit: async (data, token) => {
+    return QuizService.create(data, token);
+  },
 
   findByUser: async (userId, token) => {
     try {
@@ -24,12 +29,13 @@ const QuizService = {
         `${API}/quizzes/user/${userId}`,
         { headers: { "auth-token": token } }
       );
-      return res.data;                     
+      return res.data;
     } catch (err) {
-      console.error("QuizService.findByUser error:", err);
-      return [];  //trả về mảng rỗng, không false
+      console.error("QuizService.findByUser error:", err.response || err);
+      return [];
     }
   },
+
 
   list: async (token) => {
     try {
@@ -55,6 +61,10 @@ const QuizService = {
       console.error('Get Quiz error', error.response || error);
       return null;
     }
+  },
+
+  findById: async (id, token) => {
+    return QuizService.getById(id, token);
   },
 
   update: async (id, data, token) => {
@@ -83,19 +93,20 @@ const QuizService = {
     }
   },
 
-  attend: async (id, answers, token) => {
-    try {
-      const response = await axios.post(
-        `${API}/quizzes/${id}/attend`,
-        { answers },
-        { headers: { 'auth-token': token } }
-      );
-      return response.data;
-    } catch (error) {
-      console.error('Attend Quiz error', error.response || error);
-      return null;
-    }
+  attend: async (quizId, answers, token) => {
+  try {
+    const userId = sessionStorage.getItem("quizden-user-id");    // lấy userId đã lưu ở login
+    const response = await axios.post(
+      `${API}/quizzes/submit/${userId}`,
+      { quiz_id: quizId, answers },                              // truyền quiz_id + answers
+      { headers: { "auth-token": token } }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Attend Quiz error:", error.response || error);
+    return null;
   }
+}
 };
 
 export default QuizService;

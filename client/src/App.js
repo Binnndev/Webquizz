@@ -210,7 +210,7 @@ class App extends Component {
             path="/quiz-taken"
             render={(props) => (
               <QuizTaken
-                {...props}
+                {...props}                          
                 isLoggedIn={this.state.isLoggedIn}
                 checkLogin={this.checkLogin}
                 onLogout={this.handleLogout}

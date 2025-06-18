@@ -1,0 +1,89 @@
+/* Container chính */
+.quiz-builder {
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+/* Card metadata (tiêu đề, mô tả, loại) */
+.metadata-card {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metadata-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #333333;
+}
+
+/* Form control chung */
+.quiz-builder .form-control {
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  height: 2.8rem;
+}
+
+/* Card cho từng câu hỏi */
+.question-card {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Header câu hỏi */
+.question-card .card-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333333;
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 1rem;
+}
+
+/* Các nút hành động */
+.btn-custom {
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  margin: 0 0.5rem;
+}
+
+.btn-add {
+  background-color: #4caf50;
+  color: white;
+}
+.btn-add:hover {
+  background-color: #43a047;
+}
+
+.btn-reset {
+  background-color: #ff9800;
+  color: white;
+}
+.btn-reset:hover {
+  background-color: #fb8c00;
+}
+
+.btn-submit {
+  background-color: #2196f3;
+  color: white;
+}
+.btn-submit:hover {
+  background-color: #1e88e5;
+}
+
+/* Khung nút ở giữa */
+.actions {
+  text-align: center;
+  margin-top: 2rem;
+}

@@ -1,8 +1,14 @@
 import React from "react";
+import { Link, Redirect } from "react-router-dom";
 import NavBar from "../Layout/NavBar";
-import { Link } from "react-router-dom";
 
 const QuizDone = (props) => {
+  // Nếu không có quiz trong location.state, quay về dashboard
+  const quiz = props.location.state?.quiz;
+  if (!quiz) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <React.Fragment>
       <NavBar
@@ -10,6 +16,7 @@ const QuizDone = (props) => {
         checkLogin={props.checkLogin}
         onLogout={props.onLogout}
       />
+
       <div className="container fluid">
         <div className="row">
           <div
@@ -33,6 +40,7 @@ const QuizDone = (props) => {
             !
           </div>
         </div>
+
         <div className="row">
           <div
             className="col-sm-12"
@@ -46,6 +54,7 @@ const QuizDone = (props) => {
             Copy the Quiz ID and share.
           </div>
         </div>
+
         <div className="row mt-5">
           <div
             className="col-sm-12"
@@ -66,10 +75,11 @@ const QuizDone = (props) => {
                 backgroundColor: "var(--quizden-light)",
               }}
             >
-              {props.location.state.quiz_id}
+              {quiz._id}
             </div>
           </div>
         </div>
+
         <div className="row">
           <div
             className="col-sm-12 mt-5"

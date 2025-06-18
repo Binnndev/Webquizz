@@ -3,10 +3,16 @@ import NavBar from "../Layout/NavBar";
 import { Link, Redirect } from "react-router-dom";
 
 const QuizTaken = (props) => {
-  const { quiz } = props.location.state;
-  //   if (!props.quiz) {
-  //     return <Redirect to={{ pathname: "/dashboard" }} />;
-  //   }
+  // Lấy đúng object 'result' bạn đã push từ QuizTaker.handleSubmit
+  const result = props.location.state?.result;
+
+  // Nếu không có result, chuyển về dashboard
+  if (!result) {
+    return <Redirect to="/dashboard" />;
+  }
+
+  const { solved, total_questions } = result;
+
   return (
     <React.Fragment>
       <NavBar
@@ -14,6 +20,7 @@ const QuizTaken = (props) => {
         checkLogin={props.checkLogin}
         onLogout={props.onLogout}
       />
+
       <div className="container fluid">
         <div className="row">
           <div
@@ -26,14 +33,7 @@ const QuizTaken = (props) => {
               textAlign: "center",
             }}
           >
-            You solved {quiz.solved} out of {quiz.total_questions}!!!
-            {/* <span
-              style={{
-                color: "var(--quizden-dark-purple)",
-              }}
-            >
-              Quizzer
-            </span> */}
+            You solved {solved} out of {total_questions}!!!
           </div>
         </div>
         <div className="row pt-3">
@@ -49,30 +49,6 @@ const QuizTaken = (props) => {
             Don't cry because it is over, smile because it happened!
           </div>
         </div>
-        {/* <div className="row mt-5">
-          <div
-            className="col-sm-12"
-            style={{
-              textAlign: "center",
-            }}
-          >
-            <div
-              style={{
-                fontFamily: `'Lexend Deca', sans-serif`,
-                fontSize: "22px",
-                color: "var(--quizden-deep-purple)",
-                padding: "1.4em",
-                border: "2px solid var(--quizden-dark-purple)",
-                borderRadius: "12px",
-                margin: "auto",
-                width: "fit-content",
-                backgroundColor: "var(--quizden-light)",
-              }}
-            >
-              BLA BLA
-            </div>
-          </div>
-        </div> */}
         <div className="row">
           <div
             className="col-sm-12 mt-5"

@@ -21,15 +21,23 @@ class QuizFetcher extends Component {
   };
 
   handleFindQuiz = () => {
-    if (this.state.quizCode.length === 0) {
+    const { quizCode } = this.state;
+    if (!quizCode.trim()) {
       this.setState({ error: true });
       return;
     }
-    QuizService.findById(this.state.quizCode).then((response) => {
-      if (response === false) {
+    // Lấy token đã lưu trong AuthService.login
+    const token = sessionStorage.getItem("quizden-authToken");
+    if (!token) {
+      this.setState({ error: true });
+      return;
+    }
+    // Gọi với cả code và token
+    QuizService.findById(quizCode.trim(), token).then((response) => {
+      if (!response) {
         this.setState({ error: true });
       } else {
-        this.setState({ quiz: response });
+        this.setState({ quiz: response, error: false });
         this.props.onQuizFetch(response);
       }
     });
