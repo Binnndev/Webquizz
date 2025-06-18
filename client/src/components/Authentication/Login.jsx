@@ -59,14 +59,14 @@ class Login extends Component {
                   <span role="img" aria-label="man-walking">
                     🚶
                   </span>{" "}
-                  Back to Home
+                  Quay về Trang chủ
                 </span>
               </Link>
             </div>
           </div>
           <div className="row">
             <div className="col-sm-8 offset-sm-4">
-              <div className="auth-title mt-1">Login</div>
+              <div className="auth-title mt-1">Đăng nhập tài khoản</div>
             </div>
           </div>
           <form onSubmit={this.handleLoginSubmit}>
@@ -75,14 +75,14 @@ class Login extends Component {
               <div className="row mt-4">
                 <div className="col-sm-4 offset-sm-4">
                   <label className="input-label" htmlFor="inputEmail">
-                    Email address
+                    Email
                   </label>
                   <input
                     required="required"
                     type="text"
                     className="form-control input-field"
                     aria-describedby="emailInput"
-                    placeholder="johndoe@email.com"
+                    placeholder="hoanghai@email.com"
                     value={this.state.email}
                     onChange={this.handleEmailChange}
                   />
@@ -96,14 +96,14 @@ class Login extends Component {
                   //   style={{ backgroundColor: "red" }}
                 >
                   <label className="input-label" htmlFor="inputPassword">
-                    Password
+                    Mật khẩu
                   </label>
                   <input
                     required="required"
                     type="password"
                     className="form-control input-field"
                     aria-describedby="passwordInput"
-                    placeholder="your password"
+                    placeholder="Mật khẩu của bạn"
                     value={this.state.password}
                     onChange={this.handlePasswordChange}
                   />
@@ -119,7 +119,7 @@ class Login extends Component {
                       height: "42px",
                     }}
                   >
-                    Login
+                    Đăng Nhập
                   </button>
                 </div>
                 <div className="col-sm-2">
@@ -128,13 +128,13 @@ class Login extends Component {
                       <span role="img" aria-label="man-walking">
                         🚶
                       </span>{" "}
-                      New user? Register here
+                      Đăng kí tài khoản mới
                     </div>
                   </Link>
                 </div>
               </div>
               {this.state.error && (
-                <AuthError text="Invalid credentials given!" />
+                <AuthError text="Thông tin đăng nhập không hợp lệ!" />
               )}
             </div>
           </form>

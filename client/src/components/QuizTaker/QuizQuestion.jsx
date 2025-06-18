@@ -19,7 +19,7 @@ const QuizQuestion = (props) => {
           </div>
           <div className="row pt-3">
             <div className="col-sm-12">
-              <label className="option-label">[Answer]</label>
+              <label className="option-label">[Đáp án]</label>
               <select
                 defaultValue=""
                 className="option-dropdown"
@@ -32,7 +32,7 @@ const QuizQuestion = (props) => {
                 onChange={handleSelectAnswer}
               >
                 <option value="" disabled hidden>
-                  Select Answer
+                  Chọn Đáp án
                 </option>
                 {question.options.map((option) => (
                   <option key={option.id} value={option.id}>

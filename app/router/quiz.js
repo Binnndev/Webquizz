@@ -7,7 +7,7 @@ const Quiz = require("../model/quiz");
 
 
 // Tạo quiz mới
-router.post("/", AuthController.verifyToken, async (req, res) => {
+router.post("/", AuthController.verifyToken, QuizController.createQuiz, async (req, res) => {
   console.log("Create Quiz payload:", JSON.stringify(req.body, null, 2));
 
   // Schema validation với Joi (nếu muốn chính xác hơn)

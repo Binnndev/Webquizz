@@ -4,20 +4,20 @@ import QuizInfo from "./QuizInfo";
 const CuratedQuizList = (props) => {
   return (
     <div className={props.classes}>
-      <div className="profile-name">Curated Quizzes</div>
+      <div className="profile-name">Các quiz đã tạo</div>
       <div className="profile-email">
-        Quizzes curated by you. Copy and share the code.
+        Các quiz do bạn tạo. Sao chép và chia sẻ mã quiz.
       </div>
 
       <table className="table mt-4">
         <thead className="count-title">
           <tr>
-            <th scope="col">Serial</th>
-            <th scope="col">Title</th>
-            <th scope="col">Created at</th>
-            <th scope="col">Total Participant</th>
-            <th scope="col">Total Flawless</th>
-            <th scope="col">Quiz Code</th>
+            <th scope="col">STT</th>
+            <th scope="col">Tên quiz</th>
+            <th scope="col">Thời gian tạo</th>
+            <th scope="col">Số người tham gia</th>
+            <th scope="col">Đạt hoàn hảo</th>
+            <th scope="col">Mã Quiz</th>
           </tr>
         </thead>
         <tbody>

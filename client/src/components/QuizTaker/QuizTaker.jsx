@@ -74,7 +74,7 @@ class QuizTaker extends Component {
                 }}
               >
                 <span style={{ color: "var(--quizden-bg-dark)" }}>
-                  Quiz Type:{" "}
+                  Loại Quiz:{" "}
                 </span>
                 {quiz.type}
               </div>
@@ -104,7 +104,7 @@ class QuizTaker extends Component {
               }}
             >
               <button className="tool-button" onClick={this.handleSubmit}>
-                <Emoji emoji="💣" /> Submit
+                <Emoji emoji="💣" /> Nộp bài
               </button>
             </div>
           </div>

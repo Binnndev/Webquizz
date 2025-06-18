@@ -62,9 +62,9 @@ class QuizFetcher extends Component {
                 textAlign: "center",
               }}
             >
-              <div className="profile-name">Enter Quiz Code</div>
+              <div className="profile-name">Nhập Mã Quiz</div>
               <div className="profile-email pb-3">
-                There is still time, run away! You don't have to do this!
+                
               </div>
               <input
                 className="quiz-code-input"
@@ -74,11 +74,11 @@ class QuizFetcher extends Component {
                 onChange={this.handleQuizCodeInput}
               />
               <button className="tool-button" onClick={this.handleFindQuiz}>
-                <Emoji emoji="🔎" /> Find Quiz
+                <Emoji emoji="🔎" /> Tìm Quiz
               </button>
               {this.state.error && (
                 <div className="profile-email pb-3" style={{}}>
-                  No quiz found, good for you!
+                  Không tìm thấy mã hợp lệ, good luck!
                 </div>
               )}
               {!this.state.error && this.state.quiz && (
@@ -90,13 +90,13 @@ class QuizFetcher extends Component {
                   <div className="tooltip-wrapper">
                     <Link to="/quiz-taker">
                       <button className="tool-button">
-                        <Emoji emoji="⚔️" /> Proceed To Battle
+                        <Emoji emoji="⚔️" /> Chiến đấu ngay!
                       </button>
                     </Link>
                     <ToolTip
                       emoji="🪓"
-                      title="There is no turning back!"
-                      description="No mercy will be shown unto you. You shall receive the questions!"
+                      title="Không còn đường quay lại nữa!"
+                      description="Chúc bạn may mắn với quiz lần sau!"
                     />
                   </div>
                 </>

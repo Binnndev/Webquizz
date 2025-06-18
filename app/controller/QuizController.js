@@ -2,7 +2,7 @@ const Joi = require("@hapi/joi");
 
 const Quiz = require("../model/quiz");
 const QuizzerController = require("./QuizzerController");
-
+const Quizzer = require("../model/quizzer");
 const QuizController = {
   createQuiz: async (req, res, next) => {
     const { title, description, type, questions } = req.body;
@@ -26,8 +26,11 @@ const QuizController = {
       //   return res.status(400).send("[validation error] Invalid data given.");
       // return res.status(200).send("HU");
       const savedQuiz = await quiz.save();
-
-      const quizzer = QuizzerController.incrementCuratedCount(user_id);
+     // 👉 Sau khi lưu quiz, tăng quizCurated lên 1
+     await Quizzer.findByIdAndUpdate(
+       req.user._id,
+       { $inc: { quizCurated: 1 } }
+     );
       if (quizzer) {
         return res.status(200).send(savedQuiz);
       }

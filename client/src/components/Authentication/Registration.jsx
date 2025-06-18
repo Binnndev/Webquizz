@@ -58,14 +58,14 @@ class Registration extends Component {
                   <span role="img" aria-label="man-walking">
                     🚶
                   </span>{" "}
-                  Back to Home
+                  Quay về Trang Chủ
                 </span>
               </Link>
             </div>
           </div>
           <div className="row">
             <div className="col-sm-8 offset-sm-4">
-              <div className="auth-title mt-1">Register for a New Account</div>
+              <div className="auth-title mt-1">Đăng kí tài khoản</div>
             </div>
           </div>
           <form onSubmit={this.handleRegistrationSubmit}>
@@ -74,7 +74,7 @@ class Registration extends Component {
               <div className="row mt-4">
                 <div className="col-sm-4 offset-sm-4">
                   <label className="input-label" htmlFor="inputName">
-                    Name
+                    Họ và tên
                   </label>
                   <input
                     required="required"
@@ -92,14 +92,14 @@ class Registration extends Component {
               <div className="row mt-4">
                 <div className="col-sm-4 offset-sm-4">
                   <label className="input-label" htmlFor="inputEmail">
-                    Email address
+                    Email
                   </label>
                   <input
                     required="required"
                     type="email"
                     className="form-control input-field"
                     aria-describedby="emailInput"
-                    placeholder="johndoe@email.com"
+                    placeholder="hoanghai@email.com"
                     value={this.state.email}
                     onChange={this.handleEmailChange}
                   />
@@ -113,14 +113,14 @@ class Registration extends Component {
                   //   style={{ backgroundColor: "red" }}
                 >
                   <label className="input-label" htmlFor="inputPassword">
-                    Password
+                    Mật khẩu
                   </label>
                   <input
                     required="required"
                     type="password"
                     className="form-control input-field"
                     aria-describedby="passwordInput"
-                    placeholder="strong password"
+                    placeholder="Mật khẩu của bạn"
                     value={this.state.password}
                     onChange={this.handlePasswordChange}
                   />
@@ -137,7 +137,7 @@ class Registration extends Component {
                     }}
                     onClick={this.handleRegistration}
                   >
-                    Register
+                    Đăng Ký
                   </button>
                 </div>
                 <div className="col-sm-2">
@@ -146,7 +146,7 @@ class Registration extends Component {
                       <span role="img" aria-label="man-walking">
                         🚶
                       </span>{" "}
-                      Already Registered? Login
+                      Bạn đã có tài khoản? Đăng nhập ngay
                     </div>
                   </Link>
                 </div>

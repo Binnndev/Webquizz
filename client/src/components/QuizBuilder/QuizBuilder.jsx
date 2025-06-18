@@ -123,7 +123,7 @@ class QuizBuilder extends Component {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter quiz title"
+                  placeholder="Nhập tiêu đề"
                   value={this.state.title}
                   onChange={this.handleTitleChange}
                 />
@@ -132,7 +132,7 @@ class QuizBuilder extends Component {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter description"
+                  placeholder="Nhập mô tả"
                   value={this.state.description}
                   onChange={this.handleDescriptionChange}
                 />
@@ -143,9 +143,9 @@ class QuizBuilder extends Component {
                   value={this.state.type}
                   onChange={this.handleTypeChange}
                 >
-                  <option value="">-- Select --
+                  <option value="">-- Chọn --
                   </option>
-                  <option value="AMATEUR">Amateur
+                  <option value="Thường">Thường
                   </option>
                   <option value="TIME_TRIAL" disabled>
                     Time Trial
@@ -159,7 +159,7 @@ class QuizBuilder extends Component {
           {this.state.questions.map((q) => (
             <div key={q.id} className="question-card">
               <div className="card-header">
-                Question {q.id + 1}
+                Câu hỏi {q.id + 1}
               </div>
               <div className="card-body">
                 <Question
@@ -181,19 +181,19 @@ class QuizBuilder extends Component {
               className="btn-custom btn-add"
               onClick={this.handleAddQuestion}
             >
-              <Emoji emoji="💣" /> Add Question
+              <Emoji emoji="💣" /> Thêm câu hỏi
             </button>
             <button
               className="btn-custom btn-reset"
               onClick={this.handleResetAll}
             >
-              <Emoji emoji="✂️" /> Reset Quiz
+              <Emoji emoji="✂️" /> Đặt lại Quiz
             </button>
             <button
               className="btn-custom btn-submit"
               onClick={this.handleSubmitQuiz}
             >
-              <Emoji emoji="🔨" /> Submit Quiz
+              <Emoji emoji="🔨" /> Nộp Quiz
             </button>
           </div>
         </div>

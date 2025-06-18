@@ -13,13 +13,13 @@ const Tools = (props) => {
           <div className="tooltip-wrapper">
             <Link to="/quiz-builder">
               <button className="tool-button">
-                <Emoji emoji="💀" /> Build Quiz
+                <Emoji emoji="💀" /> Tạo Quiz
               </button>
             </Link>
             <ToolTip
               emoji="🪓"
               title="Make them suffer!"
-              description="Unleash thou wrath unto them poor souls!"
+              description="Bạn sẽ khiến họ ước rằng mình chưa từng sinh ra!"
             />
           </div>
         </div>
@@ -27,27 +27,27 @@ const Tools = (props) => {
           <div className="tooltip-wrapper">
             <Link to="/quiz-fetcher">
               <button className="tool-button">
-                <Emoji emoji="⚔️" /> Attend Quiz
+                <Emoji emoji="⚔️" /> Tham Gia Quiz
               </button>
             </Link>
             <ToolTip
               emoji="⚰️"
               title="You will not survive!"
-              description="Some fates are worse than death!"
+              description="Bạn sẽ không sống sót đâu!"
             />
           </div>
         </div>
         <div className="card">
           <div className="tooltip-wrapper">
             <button disabled="disabled" className="tool-button grayed">
-              <Emoji emoji="🔥" /> Survival (Pro)
+              <Emoji emoji="🔥" /> Sinh tồn (Pro)
             </button>
           </div>
         </div>
         <div className="card">
           <div className="tooltip-wrapper">
             <button disabled="disabled" className="tool-button grayed">
-              <Emoji emoji="🩸" /> Slay 'em (Pro)
+              <Emoji emoji="🩸" /> Chinh phục bài quiz thôi! (Pro)
             </button>
           </div>
         </div>

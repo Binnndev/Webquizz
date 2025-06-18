@@ -15,7 +15,7 @@ const NavBarAuth = (props) => {
         <li className="nav-item active mr-5">
           <Link to="/">
             <button className="button logout-button" onClick={props.onLogout}>
-              Log Out
+              Đăng Xuất
             </button>
           </Link>
         </li>
@@ -26,12 +26,12 @@ const NavBarAuth = (props) => {
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <Link to="/login">
-            <button className="button login-button mr-2">Login</button>
+            <button className="button login-button mr-2">Đăng nhập</button>
           </Link>
         </li>
         <li className="nav-item active mr-5">
           <Link to="/registration">
-            <button className="button register-button">Register</button>
+            <button className="button register-button">Đăng kí</button>
           </Link>
         </li>
       </ul>

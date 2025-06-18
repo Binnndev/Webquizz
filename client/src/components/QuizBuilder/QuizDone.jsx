@@ -29,13 +29,13 @@ const QuizDone = (props) => {
               textAlign: "center",
             }}
           >
-            Your Quiz is Created,{" "}
+            Quiz của bạn đã được tạo thành công{" "}
             <span
               style={{
                 color: "var(--quizden-dark-purple)",
               }}
             >
-              Quizzer
+              
             </span>
             !
           </div>
@@ -51,7 +51,7 @@ const QuizDone = (props) => {
               textAlign: "center",
             }}
           >
-            Copy the Quiz ID and share.
+            Sao chép Quiz ID and chia sẻ.
           </div>
         </div>
 
@@ -92,7 +92,7 @@ const QuizDone = (props) => {
                 <span role="img" aria-label="man-walking">
                   🚶
                 </span>{" "}
-                Go to Dashboard
+                Đi tới Dashboard
               </span>
             </Link>
           </div>

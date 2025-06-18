@@ -27,7 +27,7 @@ const Question = (props) => {
           <input
             type="text"
             className="profile-name input-question-title"
-            placeholder="Question ?"
+            placeholder="Câu hỏi ?"
             value={question.title}
             onChange={handleTitleChange}
           />
@@ -44,7 +44,7 @@ const Question = (props) => {
           </div>
           <div className="row pt-3">
             <div className="col-sm-12">
-              <label className="option-label">[Answer]</label>
+              <label className="option-label">[Đáp án]</label>
               <select
                 defaultValue=""
                 className="option-dropdown"
@@ -57,7 +57,7 @@ const Question = (props) => {
                 onChange={handleSelectAnswer}
               >
                 <option value="" disabled hidden>
-                  Select Answer
+                  Chọn đáp án
                 </option>
                 {question.options.map((option) => (
                   <option key={option.id} value={option.id}>
@@ -73,13 +73,13 @@ const Question = (props) => {
             className="remove-button"
             onClick={() => props.onRemove(question.id)}
           >
-            <Emoji emoji="🗑️" /> Remove
+            <Emoji emoji="🗑️" /> Xóa
           </button>
           <button
             className="add-button"
             onClick={() => props.onAddOption(question.id)}
           >
-            <Emoji emoji="✍️" /> Add Option
+            <Emoji emoji="✍️" /> Thêm đáp án
           </button>
         </div>
       </div>

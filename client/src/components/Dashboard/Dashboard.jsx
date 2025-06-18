@@ -11,7 +11,9 @@ class Dashboard extends Component {
   async componentDidMount() {
     const token  = sessionStorage.getItem("quizden-authToken");
     const userId = sessionStorage.getItem("quizden-user-id");
-
+    QuizzerService.getQuizzer(userId, token).then((profile) => {
+      this.setState({ user: profile });
+    });
     // cập nhật App.state.user
     const profile = await QuizzerService.getQuizzer(userId, token);
     if (profile) this.props.onUserUpdate(profile);
@@ -53,8 +55,8 @@ class Dashboard extends Component {
             {/* Tools section  */}
             <Tools
               classes="col-sm-6 ml-4 section tools"
-              title="Quizzer Tools"
-              subtitle="Some tools may only be available in Pro License"
+              title="Công cụ Quizzer"
+              subtitle="Một số công cụ chỉ có thể có bản Pro"
             />
             {/* Tools section  end*/}
           </div>

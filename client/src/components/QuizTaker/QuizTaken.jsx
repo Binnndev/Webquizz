@@ -33,7 +33,7 @@ const QuizTaken = (props) => {
               textAlign: "center",
             }}
           >
-            You solved {solved} out of {total_questions}!!!
+            Bạn đã giải được {solved} trên {total_questions} câu hỏi!!!
           </div>
         </div>
         <div className="row pt-3">
@@ -61,7 +61,7 @@ const QuizTaken = (props) => {
                 <span role="img" aria-label="man-walking">
                   🚶
                 </span>{" "}
-                Go to Dashboard
+                Đi tới Dashboard
               </span>
             </Link>
           </div>
