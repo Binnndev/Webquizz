@@ -3,41 +3,71 @@ const Joi = require("@hapi/joi");
 const Quiz = require("../model/quiz");
 const QuizzerController = require("./QuizzerController");
 const Quizzer = require("../model/quizzer");
+
 const QuizController = {
   createQuiz: async (req, res, next) => {
-    const { title, description, type, questions } = req.body;
-    const user_id = req.params.user_id;
+    const quizSchema = Joi.object({
+      title: Joi.string().required(),
+      description: Joi.string().allow(""),
+      type: Joi.string().required(),
+      questions: Joi.array()
+        .min(1)
+        .items(
+          Joi.object({
+            id: Joi.number().required(),
+            title: Joi.string().required(),
+            options: Joi.array()
+              .min(2)
+              .items(
+                Joi.object({
+                  id: Joi.number().required(),
+                  value: Joi.string().required(),
+                })
+              )
+              .required(),
+            answer: Joi.number().required(),
+          })
+        )
+        .required(),
+    });
 
-    // const quizSchema = Joi.object({
-    //   user_id: Joi.string().required(),
-    //   title: Joi.string().required(),
-    //   description: Joi.string(),
-    //   type: Joi.string().required(),
-    //   questions: Joi.array().required(),
-    // });
+    const { error: valErr } = quizSchema.validate(req.body);
+    if (valErr) {
+      console.warn("❌ Quiz validation failed:", valErr.message);
+      return res.status(400).json({ error: valErr.message });
+    }
 
     try {
-      // create Quiz
-      const quiz = new Quiz({ user_id, title, description, type, questions });
-      // //   validating given data
-      // const { error } = quizSchema.validate(quiz);
-      // console.log(error);
-      // if (error)
-      //   return res.status(400).send("[validation error] Invalid data given.");
-      // return res.status(200).send("HU");
-      const savedQuiz = await quiz.save();
-     // 👉 Sau khi lưu quiz, tăng quizCurated lên 1
-     await Quizzer.findByIdAndUpdate(
-       req.user._id,
-       { $inc: { quizCurated: 1 } }
-     );
-      if (quizzer) {
-        return res.status(200).send(savedQuiz);
+      const { title, description, type, questions } = req.body;
+      const user_id = req.user._id;
+
+      // kiểm tra tiêu đề đã tồn tại cho user hiện tại chưa
+      const existing = await Quiz.findOne({ user_id, title });
+      if (existing) {
+        return res.status(400).json({ error: "Quiz title already exists." });
       }
-      return res.status(400).send("Quizzer Does not exist.");
+
+      // kiểm tra giới hạn số quiz (vd: tối đa 10 quiz mỗi người)
+      const totalCreated = await Quiz.countDocuments({ user_id });
+      if (totalCreated >= 10) {
+        return res.status(400).json({ error: "You have reached the limit of 10 quizzes." });
+      }
+
+      const quiz = new Quiz({ user_id, title, description, type, questions });
+      const savedQuiz = await quiz.save();
+
+      const updatedQuizzer = await Quizzer.findByIdAndUpdate(user_id, { $inc: { quizCurated: 1 } });
+      if (!updatedQuizzer) {
+        return res.status(400).json({ error: "Quizzer does not exist." });
+      }
+
+      return res.status(201).json(savedQuiz);
     } catch (err) {
-      console.log("Error", err);
-      return res.status(400).send("Does not exist.");
+      console.error("❌ Create Quiz error:", err);
+      if (err.name === "ValidationError") {
+        return res.status(400).json({ error: err.message });
+      }
+      return res.status(500).json({ error: "Server error" });
     }
   },
 
@@ -86,6 +116,7 @@ const QuizController = {
       return res.status(400).send("Invalid data given.");
     }
   },
+
   submitQuizAnswer: async (req, res, next) => {
     try {
       const user_id = req.params.user_id;
@@ -129,4 +160,5 @@ const QuizController = {
     }
   },
 };
+
 module.exports = QuizController;
